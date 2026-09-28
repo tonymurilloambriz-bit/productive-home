@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <a href="index.html" class="home-button">Back to Main Page</a>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Kitchen Shopping List</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f7f3eb; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+  
+        .shopping-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(92, 64, 51, 0.15); /* Soft brown shadow */
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid #e2d7cd;
+        }
+
+        h1 {
+            color: #5c4033; 
+            font-size: 26px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+
+        
+        .input-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ded0c3; 
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            outline: none;
+            background-color: #fdfcfb;
+            color: #5c4033;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #a07855; 
+        }
+
+        button {
+            background-color: #a07855; 
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            font-size: 16px;
+            font-family: inherit;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #835f41; 
+        }
+
+        /* Shopping List Items */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #fdfbf7; 
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #c4a484; 
+            color: #5c4033;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Delete Button */
+        .delete-btn {
+            background-color: transparent;
+            color: #b05c5c; 
+            border: 1px solid #e8dcd2;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .delete-btn:hover {
+            background-color: #fcebeb;
+            border-color: #b05c5c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shopping-container">
+        <h1>🏡 Pantry & Grocery List</h1>
+        
+        <div class="input-section">
+            <input type="text" id="itemInput" placeholder="Add to the pantry..." autocomplete="off">
+            <button id="addBtn">Add</button>
+        </div>
+
+        <ul id="shoppingList"></ul>
+    </div>
+
+    <script>
+        const itemInput = document.getElementById('itemInput');
+        const addBtn = document.getElementById('addBtn');
+        const shoppingList = document.getElementById('shoppingList');
+
+        function addItem() {
+            const itemText = itemInput.value.trim();
+
+            if (itemText === '') {
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.textContent = itemText;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Remove';
+            deleteBtn.className = 'delete-btn';
+            
+            deleteBtn.addEventListener('click', function() {
+                shoppingList.removeChild(li);
+            });
+
+            li.appendChild(deleteBtn);
+            shoppingList.appendChild(li);
+
+            itemInput.value = '';
+            itemInput.focus();
+        }
+
+        addBtn.addEventListener('click', addItem);
+
+        itemInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                addItem();
+            }
+        });
+    </script>
+
+</body>
+</html>
